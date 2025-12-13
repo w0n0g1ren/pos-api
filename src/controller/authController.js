@@ -3,6 +3,7 @@ const accountModels = require('../models/accountModels.js');
 const employeeModels = require('../models/employee.js');
 const bcrypt = require('bcryptjs');
 const {uploadToFTP} = require('../service/ftpService');
+const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
     try {
@@ -16,14 +17,25 @@ const login = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid account name or password' });
         }
-
         else {
+
+        const payload = {
+            account_name: accountData.account_name,
+            timestamp: Date.now()
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: '1d'
+        });
             res.json({
                 message: 'Login successful',
                 data: {
                     account_id: accountData.account_id,
                     account_name: accountData.account_name,
-                    employee_id: accountData.employee_id
+                    employee_id: accountData.employee_id,
+                    credential: {
+                        token: token,
+                        type: 'Bearer'
+                    }
                 }
             });
         }

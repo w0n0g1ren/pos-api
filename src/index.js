@@ -15,9 +15,10 @@ const middlewareAuth = require('./middleware/auth.js');
 app.use(middleware);
 app.use(express.json());
 app.use('/auth', authRoutes);
-// app.use(middlewareAuth);
 const staticPath = process.env.UPLOAD_PATH || 'uploads';
 app.use('/public-images', express.static(staticPath));
+
+app.use(middlewareAuth);
 
 app.use('/users', userRoutes);
 
@@ -28,6 +29,7 @@ app.use('/uom', uomRoutes);
 app.use('/item', itemRoutes);
 
 app.use('/tr-cashier', trChasierRoutes);
+
 app.use('/account', accountRoutes);
 
 app.listen(process.env.PORT, () => {
