@@ -8,6 +8,10 @@ const getEmployeeById = (id) => {
     return dbPool('mst_employee').where('id', id).first();
 }
 
+const getEmployeeByEmployeeCode = (employee_code) => {
+    return dbPool('mst_employee').where('employee_code', employee_code).first();
+}
+
 const createEmployee = (data) => {
     return dbPool('mst_employee').insert(data);
 }
@@ -15,5 +19,6 @@ const createEmployee = (data) => {
 module.exports = {
     getallEmployee,
     createEmployee,
-    getEmployeeById
+    getEmployeeById,
+    getEmployeeByEmployeeCode
 }

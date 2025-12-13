@@ -16,7 +16,8 @@ app.use(middleware);
 app.use(express.json());
 app.use('/auth', authRoutes);
 // app.use(middlewareAuth);
-app.use('/public-images', express.static('D:/ftp/uploads'));
+const staticPath = process.env.UPLOAD_PATH || 'uploads';
+app.use('/public-images', express.static(staticPath));
 
 app.use('/users', userRoutes);
 

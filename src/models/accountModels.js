@@ -8,9 +8,11 @@ const createAccount = async (data) => {
 const getAccountByAccountName = (account_name) => {
     return db('mst_account').where('account_name', account_name).first();
 }
-
+const getAccountByEmployeeId = (id) => {
+    return db('mst_account').where('employee_id', id).first();
+}
 module.exports = {
     createAccount,
     getAccountByAccountName,
-    registerAccount
+    getAccountByEmployeeId
 };
