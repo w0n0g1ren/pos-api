@@ -69,8 +69,32 @@ const createItem = async (req, res) => {
         }
 }
 
+const updateQuantityItem = async (req, res) => {
+    try {
+        const { quantity, item_id } = req.body;
+        const data = await itemModel.updateQuantityItem(item_id, quantity);
+        if (!data) {
+            res.status(404).json({
+                message: 'Item not found',
+                data: null
+            });
+        } else {
+            res.json({
+                message: 'Successfully updated item quantity',
+                data: data
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            server_error_message: err.message
+        });
+    }
+}
+
 module.exports = {
     getAllItems,
     createItem,
-    getItemById
+    getItemById,
+    updateQuantityItem
 }

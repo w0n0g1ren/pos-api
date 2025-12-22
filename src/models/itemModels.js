@@ -1,7 +1,7 @@
 const dbPool = require('../config/database');
 
 const getAllItems = async () => {
-    const rows = await dbPool('mst_item').select('*').leftJoin('mst_uom', 'mst_item.uom_id', 'mst_uom.id').select('mst_item.*', 'mst_uom.*');
+    const rows = await dbPool('mst_item').select('*').leftJoin('mst_uom', 'mst_item.uom_id', 'mst_uom.id').select('mst_item.*', 'mst_uom.id as uom_id', 'mst_uom.uom_code', 'mst_uom.uom_name');
     if (rows) {
         const formattedResult = rows.map((row) => {
             return {
@@ -24,7 +24,7 @@ const getAllItems = async () => {
 }
 
 const getItemById = async (id) => {
-    const result = await dbPool('mst_item').where('mst_item.id', id).leftJoin('mst_uom', 'mst_item.uom_id', 'mst_uom.id').select('mst_item.*', 'mst_uom.*').first();
+    const result = await dbPool('mst_item').where('mst_item.id', id).leftJoin('mst_uom', 'mst_item.uom_id', 'mst_uom.id').select('mst_item.*', 'mst_uom.id as uom_id', 'mst_uom.uom_code', 'mst_uom.uom_name', 'mst_uom.description').first();
     if (result) {
         const formattedResult = {
             id: result.id,
@@ -49,8 +49,14 @@ const createItem = (data) => {
     return dbPool('mst_item').insert(data);
 }
 
+const updateQuantityItem = async (id, quantity) => {
+    await dbPool('mst_item').where('id', id).increment('quantity', quantity);
+    const data = await dbPool('mst_item').where('id', id).first();
+    return data;
+}
 module.exports = {
     getAllItems,
     createItem,
-    getItemById
+    getItemById,
+    updateQuantityItem
 }

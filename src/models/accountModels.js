@@ -6,7 +6,7 @@ const createAccount = async (data) => {
 }
 
 const getAccountByAccountName = (account_name) => {
-    return db('mst_account').where('account_name', account_name).first();
+    return db('mst_account').where('account_name', account_name).first().leftJoin('mst_employee', 'mst_account.employee_id', 'mst_employee.id').select('mst_account.*', 'mst_employee.employee_code');
 }
 
 const getAccountByEmployeeId = (id) => {
@@ -19,5 +19,6 @@ const updateBearerToken = (account_id, bearer_token) => {
 module.exports = {
     createAccount,
     getAccountByAccountName,
-    getAccountByEmployeeId
+    getAccountByEmployeeId,
+    updateBearerToken
 };

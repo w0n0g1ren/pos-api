@@ -9,7 +9,7 @@ const authenticationToken = (req, res, next) => {
         return res.status(401).json({ message: 'No token provided' });
     }
 
-    jwtToken.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwtToken.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid token' });
         }

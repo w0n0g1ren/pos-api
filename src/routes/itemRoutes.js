@@ -8,4 +8,6 @@ router.get('/:id', itemController.getItemById);
 
 router.post('/', itemController.createItem);
 
+router.patch('/quantity', itemController.updateQuantityItem);
+
 module.exports = router;

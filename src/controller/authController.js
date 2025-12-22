@@ -26,15 +26,24 @@ const login = async (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: '1d'
         });
+
+        const decodedToken = jwt.decode(token);
+        const expiredAt = new Date(decodedToken.exp * 1000);
+        const formattedExpiredAt = expiredAt.toLocaleString('sv-SE', { 
+        timeZone: 'Asia/Jakarta',
+        hour12: false
+        });
             res.json({
                 message: 'Login successful',
                 data: {
                     account_id: accountData.account_id,
                     account_name: accountData.account_name,
                     employee_id: accountData.employee_id,
+                    employee_code: accountData.employee_code,
                     credential: {
                         token: token,
-                        type: 'Bearer'
+                        type: 'Bearer',
+                        expires_at: formattedExpiredAt
                     }
                 }
             });
