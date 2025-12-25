@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
+    "scripts": {
+    "start": "nodemon src/index.js",
     "start:migrate": "cd src/config && npx knex migrate:latest && cd ../.. && npm start"
   },
   "keywords": [],
