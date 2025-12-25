@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "migrate": "knex migrate:latest",
-    "start:prod": "npx knex migrate:latest && node index.js"
+    "start:migrate": "cd src/config && npx knex migrate:latest && cd ../.. && npm start"
   },
   "keywords": [],
   "author": "",
