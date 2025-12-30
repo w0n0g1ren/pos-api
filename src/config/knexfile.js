@@ -1,9 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
+
 module.exports = {
   development: {
     client: 'mysql2',
@@ -16,7 +14,7 @@ module.exports = {
       
       ssl: {
         minVersion: 'TLSv1.2',
-        rejectUnauthorized: true
+        rejectUnauthorized: false
     }
     },
     migrations: {
@@ -64,5 +62,4 @@ module.exports = {
       directory: './migrations'
     }
   }
-
 };

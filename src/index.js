@@ -11,9 +11,12 @@ const accountRoutes = require('./routes/accountRotes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const middleware = require('./middleware/logs.js');
 const middlewareAuth = require('./middleware/auth.js');
+const cors = require('cors');
 
+app.use(cors());
 app.use(middleware);
 app.use(express.json());
+
 app.use('/auth', authRoutes);
 const staticPath = process.env.UPLOAD_PATH || 'uploads';
 app.use('/public-images', express.static(staticPath));
