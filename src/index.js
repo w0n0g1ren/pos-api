@@ -11,6 +11,7 @@ const accountRoutes = require('./routes/accountRotes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const middleware = require('./middleware/logs.js');
 const middlewareAuth = require('./middleware/auth.js');
+const dashboardRoutes = require('./routes/dashboardRoutes.js');
 const cors = require('cors');
 
 app.use(cors());
@@ -34,6 +35,8 @@ app.use('/item', itemRoutes);
 app.use('/tr-cashier', trChasierRoutes);
 
 app.use('/account', accountRoutes);
+
+app.use('/dashboard', dashboardRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log('succesfully start server, listen at port 4000');
